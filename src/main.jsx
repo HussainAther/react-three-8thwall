@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import DreiRefraction from './examples.js';
-import * as constants from './examples.js';
 import './index.css';
-
-console.log(constants)
+import './examples.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
