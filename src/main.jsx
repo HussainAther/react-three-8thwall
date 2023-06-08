@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import DreiRefraction from './examples';
+import DreiRefraction from './src';
 <DreiRefraction />;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
