@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import DreiRefraction from './DreiRefraction.jsx';
+import DreiRefraction;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
