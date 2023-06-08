@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import DreiRefraction from './examples';
+import DreiRefraction from './DreiRefraction';
 // import App from './App';
 import './index.css';
 
