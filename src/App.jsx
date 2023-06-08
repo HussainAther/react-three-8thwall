@@ -19,7 +19,7 @@ function App() {
       <Canvas style={{ position: 'absolute' }}>
         <scene ref={R3Scene}>
           <ambientLight />
-          <DreiRefraction />;
+          <DreiRefraction />
           <pointLight position={[10, 15, 10]} />
         </scene>
       </Canvas>
