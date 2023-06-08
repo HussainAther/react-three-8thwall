@@ -11,5 +11,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
   <DreiRefraction />
 )
-
-export default App;
