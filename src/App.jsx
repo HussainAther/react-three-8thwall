@@ -2,6 +2,7 @@ import XR8Scene from './XR8Scene';
 import { useRef, useEffect } from 'react';
 import './App.css';
 import { Canvas } from '@react-three/fiber';
+import DreiRefraction from './examples';
 
 function App() {
   const canvasRef = useRef();
@@ -17,6 +18,7 @@ function App() {
     <div className="App">
       <Canvas style={{ position: 'absolute' }}>
         <scene ref={R3Scene}>
+          <DreiRefraction />
           <ambientLight />
           <pointLight position={[10, 15, 10]} />
         </scene>
