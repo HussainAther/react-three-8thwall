@@ -11,15 +11,18 @@
 
     <script type="text/babel">
       // JSX code
-      const DreiRefraction = () => (
+      import DreiRefraction from './examples';
+
+      const DreiRefractionComponent = () => (
         <div>
           <h1>DreiRefraction JSX Component</h1>
           <p>This is a placeholder for the DreiRefraction component.</p>
+          <DreiRefraction />
         </div>
       );
 
       // Render JSX component into the root element
-      ReactDOM.render(<DreiRefraction />, document.getElementById('root'));
+      ReactDOM.render(<DreiRefractionComponent />, document.getElementById('root'));
     </script>
   </body>
 </html>
