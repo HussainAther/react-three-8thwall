@@ -2,7 +2,7 @@ import XR8Scene from './XR8Scene';
 import { useRef, useEffect } from 'react';
 import './App.css';
 import { Canvas } from '@react-three/fiber';
-import { DreiRefraction } from './DreiRefraction.jsx';
+import DreiRefraction from './DreiRefraction';
 
 function App() {
   const canvasRef = useRef();
