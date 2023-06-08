@@ -16,4 +16,26 @@
   <body>
     <div id="root"></div>
   </body>
+  <head>
+    <title>Embedding JSX in HTML Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/react/umd/react.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babel-standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // JSX code
+      const DreiRefraction = () => (
+        <div>
+          <h1>DreiRefraction JSX Component</h1>
+          <p>This is a placeholder for the DreiRefraction component.</p>
+        </div>
+      );
+
+      // Render JSX component into the root element
+      ReactDOM.render(<DreiRefraction />, document.getElementById('root'));
+    </script>
+  </body>
 </html>
