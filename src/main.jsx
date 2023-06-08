@@ -1,25 +1,12 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom/client'
-// import App from './App'
-// import './index.css'
-
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-// )
 import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 import DreiRefraction from './examples';
+import './index.css';
 
-class ARApp extends React.Component {
-  render() {
-    return (
-      <div>
-        {/* Other JSX code for your AR app */}
-        <DreiRefraction />
-      </div>
-    );
-  }
-}
-
-export default ARApp;
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+    <DreiRefraction />
+  </React.StrictMode>
+);
