@@ -2,7 +2,7 @@ import XR8Scene from './XR8Scene';
 import { useRef, useEffect } from 'react';
 import './App.css';
 import { Canvas } from '@react-three/fiber';
-import LoadedGltf from './examples';
+import LoadedGltf from './LoadedGltf';
 
 function App() {
   const canvasRef = useRef();
