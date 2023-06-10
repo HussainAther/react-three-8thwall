@@ -1,7 +1,7 @@
 import XR8Scene from './XR8Scene';
 import { useRef, useEffect, useState } from 'react';
 import './App.css';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import LoadedGltf from './LoadedGltf';
 import { Html } from '@react-three/drei';
 
@@ -14,7 +14,7 @@ function App() {
   const [modelId, setModelId] = useState('');
   const [modelData, setModelData] = useState(null);
 
-  let { onxrloaded, cubeCamera } = XR8Scene(canvasRef, R3Scene);
+  let { onxrloaded } = XR8Scene(canvasRef, R3Scene);
 
   useEffect(() => {
     XRExtras.Loading.showLoading({ onxrloaded });
