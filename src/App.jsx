@@ -8,9 +8,6 @@ import { Html } from '@react-three/drei';
 function App() {
   const canvasRef = useRef();
   const R3Scene = useRef();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [modelId, setModelId] = useState('');
   const [modelData, setModelData] = useState(null);
 
@@ -26,30 +23,12 @@ function App() {
     console.log('Object clicked!');
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    // Validate username and password
-    if (username === 'admin' && password === 'password') {
-      setLoggedIn(true);
-      console.log('Login successful!');
-    } else {
-      console.log('Invalid username or password!');
-    }
-  };
-
-  const handleLogout = () => {
-    setLoggedIn(false);
-    setUsername('');
-    setPassword('');
-  };
-
   const handleModelIdChange = (e) => {
     setModelId(e.target.value);
   };
 
   useEffect(() => {
-    // Fetch the model data when the user is logged in and modelId is provided
+    // Fetch the model data when the modelId is provided
     const fetchModelData = async () => {
       try {
         const response = await fetch(`/api/models/${modelId}`);
@@ -60,10 +39,10 @@ function App() {
       }
     };
 
-    if (isLoggedIn && modelId !== '') {
+    if (modelId !== '') {
       fetchModelData();
     }
-  }, [isLoggedIn, modelId]);
+  }, [modelId]);
 
   return (
     <div className="App">
@@ -76,38 +55,17 @@ function App() {
         </scene>
         {/* Overlay HTML for UI elements */}
         <Html>
-          {isLoggedIn ? (
-            <div className="menu">
-              <h2>Welcome, {username}!</h2>
-              <button onClick={handleLogout}>Logout</button>
-              <form onSubmit={(e) => { e.preventDefault(); }}>
-                <input
-                  type="text"
-                  placeholder="Model ID"
-                  value={modelId}
-                  onChange={handleModelIdChange}
-                />
-                <button type="submit" onClick={() => { setModelData(null); }}>Fetch Model</button>
-              </form>
-            </div>
-          ) : (
-            <form className="login-form" onSubmit={handleLogin}>
-              <h2>Login</h2>
+          <div className="menu">
+            <form onSubmit={(e) => { e.preventDefault(); }}>
               <input
                 type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Model ID"
+                value={modelId}
+                onChange={handleModelIdChange}
               />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button type="submit">Login</button>
+              <button type="submit" onClick={() => { setModelData(null); }}>Fetch Model</button>
             </form>
-          )}
+          </div>
         </Html>
       </Canvas>
       <canvas
