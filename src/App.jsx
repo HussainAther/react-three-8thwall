@@ -11,15 +11,11 @@ function App() {
   const [modelId, setModelId] = useState('');
   const [modelData, setModelData] = useState(null);
 
-  let { onxrloaded } = XR8Scene(canvasRef, R3Scene);
-
   useEffect(() => {
-    XRExtras.Loading.showLoading({ onxrloaded });
+    XRExtras.Loading.showLoading();
   }, []);
 
   const handleObjectClick = () => {
-    // Handle object click event
-    // This can be a placeholder for your object interaction logic
     console.log('Object clicked!');
   };
 
@@ -27,18 +23,17 @@ function App() {
     setModelId(e.target.value);
   };
 
-  useEffect(() => {
-    // Fetch the model data when the modelId is provided
-    const fetchModelData = async () => {
-      try {
-        const response = await fetch(`/api/models/${modelId}`);
-        const data = await response.json();
-        setModelData(data);
-      } catch (error) {
-        console.log('Error fetching model data:', error);
-      }
-    };
+  const fetchModelData = async () => {
+    try {
+      const response = await fetch(`/api/models/${modelId}`);
+      const data = await response.json();
+      setModelData(data);
+    } catch (error) {
+      console.log('Error fetching model data:', error);
+    }
+  };
 
+  useEffect(() => {
     if (modelId !== '') {
       fetchModelData();
     }
@@ -49,11 +44,9 @@ function App() {
       <Canvas style={{ position: 'absolute' }}>
         <scene ref={R3Scene}>
           <ambientLight />
-          {/* <DreiRefraction envMap={cubeCamera.renderTarget.texture} /> */}
           {modelData && <LoadedGltf onClick={handleObjectClick} modelData={modelData} />}
           <pointLight position={[10, 15, 10]} />
         </scene>
-        {/* Overlay HTML for UI elements */}
         <Html>
           <div className="menu">
             <form onSubmit={(e) => { e.preventDefault(); }}>
