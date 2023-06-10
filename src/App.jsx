@@ -11,6 +11,7 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [modelData, setModelData] = useState(null);
 
   let { onxrloaded, cubeCamera } = XR8Scene(canvasRef, R3Scene);
 
@@ -42,13 +43,30 @@ function App() {
     setPassword('');
   };
 
+  const fetchModelData = async (modelId) => {
+    try {
+      const response = await fetch(`/api/models/${modelId}`);
+      const data = await response.json();
+      setModelData(data);
+    } catch (error) {
+      console.log('Error fetching model data:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch the model data when the user is logged in
+    if (isLoggedIn) {
+      fetchModelData('model123'); // Replace 'model123' with the actual model ID
+    }
+  }, [isLoggedIn]);
+
   return (
     <div className="App">
       <Canvas style={{ position: 'absolute' }}>
         <scene ref={R3Scene}>
           <ambientLight />
           {/* <DreiRefraction envMap={cubeCamera.renderTarget.texture} /> */}
-          <LoadedGltf onClick={handleObjectClick} />
+          {modelData && <LoadedGltf onClick={handleObjectClick} modelData={modelData} />}
           <pointLight position={[10, 15, 10]} />
         </scene>
         {/* Overlay HTML for UI elements */}
