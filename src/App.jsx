@@ -48,18 +48,18 @@ function App() {
     setModelId(e.target.value);
   };
 
-  const fetchModelData = async () => {
-    try {
-      const response = await fetch(`/api/models/${modelId}`);
-      const data = await response.json();
-      setModelData(data);
-    } catch (error) {
-      console.log('Error fetching model data:', error);
-    }
-  };
-
   useEffect(() => {
     // Fetch the model data when the user is logged in and modelId is provided
+    const fetchModelData = async () => {
+      try {
+        const response = await fetch(`/api/models/${modelId}`);
+        const data = await response.json();
+        setModelData(data);
+      } catch (error) {
+        console.log('Error fetching model data:', error);
+      }
+    };
+
     if (isLoggedIn && modelId !== '') {
       fetchModelData();
     }
@@ -80,14 +80,14 @@ function App() {
             <div className="menu">
               <h2>Welcome, {username}!</h2>
               <button onClick={handleLogout}>Logout</button>
-              <form onSubmit={fetchModelData}>
+              <form onSubmit={(e) => { e.preventDefault(); }}>
                 <input
                   type="text"
                   placeholder="Model ID"
                   value={modelId}
                   onChange={handleModelIdChange}
                 />
-                <button type="submit">Fetch Model</button>
+                <button type="submit" onClick={() => { setModelData(null); }}>Fetch Model</button>
               </form>
             </div>
           ) : (
