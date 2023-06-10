@@ -1,9 +1,9 @@
 import XR8Scene from './XR8Scene';
 import { useRef, useEffect } from 'react';
 import './App.css';
-import { Canvas } from '@react-three/fiber';
-import { useThree } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import LoadedGltf from './LoadedGltf';
+import { Html } from '@react-three/drei';
 
 function App() {
   const canvasRef = useRef();
@@ -35,11 +35,11 @@ function App() {
           {/* <DreiRefraction envMap={cubeCamera.renderTarget.texture} /> */}
           <LoadedGltf onClick={handleObjectClick} />
           <pointLight position={[10, 15, 10]} />
-
-          {/* Place your menu objects within the scene */}
-          <MenuObject onClick={handleMenuClick} position={[0, 0, -5]} />
-
         </scene>
+        {/* Overlay HTML for UI elements */}
+        <Html>
+          <Menu onClick={handleMenuClick} />
+        </Html>
       </Canvas>
       <canvas
         ref={canvasRef}
@@ -53,12 +53,13 @@ function App() {
 
 export default App;
 
-function MenuObject({ onClick, position }) {
+function Menu({ onClick }) {
   return (
-    <mesh position={position} onClick={onClick}>
-      <boxBufferGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="red" />
-    </mesh>
+    <div className="menu">
+      <button onClick={onClick}>Menu Item 1</button>
+      <button onClick={onClick}>Menu Item 2</button>
+      <button onClick={onClick}>Menu Item 3</button>
+    </div>
   );
 }
 
