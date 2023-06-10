@@ -1,9 +1,3 @@
-import XR8Scene from './XR8Scene';
-import { useRef, useEffect, useState } from 'react'; // Add useState
-import './App.css';
-import { Canvas, useThree } from '@react-three/fiber'; // Add useThree
-import { Html, useDetectGPU } from '@react-three/drei'; // Add Html and useDetectGPU
-
 function App() {
   const canvasRef = useRef();
   const R3Scene = useRef();
@@ -34,15 +28,17 @@ function App() {
           {/* <DreiRefraction envMap={cubeCamera.renderTarget.texture} /> */}
           <LoadedGltf onClick={handleObjectClick} />
           <pointLight position={[10, 15, 10]} />
+
+          {/* Display menu only if it's visible */}
+          {isMenuVisible && (
+            <Menu handleObjectClick={handleObjectClick} />
+          )}
+
+          {/* Overlay HTML for UI elements */}
+          <Html>
+            <button onClick={handleMenuButtonClick}>Toggle Menu</button>
+          </Html>
         </scene>
-        {/* Display menu only if it's visible */}
-        {isMenuVisible && (
-          <Menu handleObjectClick={handleObjectClick} />
-        )}
-        {/* Overlay HTML for UI elements */}
-        <Html>
-          <button onClick={handleMenuButtonClick}>Toggle Menu</button>
-        </Html>
       </Canvas>
       <canvas
         ref={canvasRef}
@@ -59,12 +55,14 @@ export default App;
 function Menu({ handleObjectClick }) {
   // Menu component content
   return (
-    <Html>
-      <div style={{ position: 'absolute', top: '50px', left: '50px' }}>
-        <h2>Menu</h2>
-        <button onClick={handleObjectClick}>Interact with Object</button>
-      </div>
-    </Html>
+    <group>
+      <Html>
+        <div style={{ position: 'absolute', top: '50px', left: '50px' }}>
+          <h2>Menu</h2>
+          <button onClick={handleObjectClick}>Interact with Object</button>
+        </div>
+      </Html>
+    </group>
   );
 }
 
