@@ -2,6 +2,7 @@ import XR8Scene from './XR8Scene';
 import { useRef, useEffect } from 'react';
 import './App.css';
 import { Canvas } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import LoadedGltf from './LoadedGltf';
 
 function App() {
@@ -14,14 +15,30 @@ function App() {
     XRExtras.Loading.showLoading({ onxrloaded });
   }, []);
 
+  const handleObjectClick = () => {
+    // Handle object click event
+    // This can be a placeholder for your object interaction logic
+    console.log('Object clicked!');
+  };
+
+  const handleMenuClick = () => {
+    // Handle menu click event
+    // This can be a placeholder for your menu interaction logic
+    console.log('Menu clicked!');
+  };
+
   return (
     <div className="App">
       <Canvas style={{ position: 'absolute' }}>
         <scene ref={R3Scene}>
           <ambientLight />
           {/* <DreiRefraction envMap={cubeCamera.renderTarget.texture} /> */}
-          <LoadedGltf />;
+          <LoadedGltf onClick={handleObjectClick} />
           <pointLight position={[10, 15, 10]} />
+
+          {/* Place your menu objects within the scene */}
+          <MenuObject onClick={handleMenuClick} position={[0, 0, -5]} />
+
         </scene>
       </Canvas>
       <canvas
@@ -35,3 +52,13 @@ function App() {
 }
 
 export default App;
+
+function MenuObject({ onClick, position }) {
+  return (
+    <mesh position={position} onClick={onClick}>
+      <boxBufferGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="red" />
+    </mesh>
+  );
+}
+
