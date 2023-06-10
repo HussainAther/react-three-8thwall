@@ -1,3 +1,10 @@
+import XR8Scene from './XR8Scene';
+import { useRef, useEffect, useState } from 'react'; // Add useState
+import './App.css';
+import { Canvas, useThree } from '@react-three/fiber'; // Add useThree
+import { Html, useDetectGPU } from '@react-three/drei'; // Add Html and useDetectGPU
+
+
 function App() {
   const canvasRef = useRef();
   const R3Scene = useRef();
@@ -65,4 +72,6 @@ function Menu({ handleObjectClick }) {
     </group>
   );
 }
+
+
 
