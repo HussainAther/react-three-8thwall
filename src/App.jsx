@@ -19,7 +19,7 @@ function App() {
       <Canvas style={{ position: 'absolute' }}>
         <scene ref={R3Scene}>
           <ambientLight />
-{/* <DreiRefraction envMap={cubeCamera.renderTarget.texture} /> */}
+          {/* <DreiRefraction envMap={cubeCamera.renderTarget.texture} /> */}
           <LoadedGltf />;
           <pointLight position={[10, 15, 10]} />
         </scene>
