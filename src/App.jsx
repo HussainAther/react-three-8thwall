@@ -11,6 +11,7 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [modelId, setModelId] = useState('');
   const [modelData, setModelData] = useState(null);
 
   let { onxrloaded, cubeCamera } = XR8Scene(canvasRef, R3Scene);
@@ -43,7 +44,11 @@ function App() {
     setPassword('');
   };
 
-  const fetchModelData = async (modelId) => {
+  const handleModelIdChange = (e) => {
+    setModelId(e.target.value);
+  };
+
+  const fetchModelData = async () => {
     try {
       const response = await fetch(`/api/models/${modelId}`);
       const data = await response.json();
@@ -54,11 +59,11 @@ function App() {
   };
 
   useEffect(() => {
-    // Fetch the model data when the user is logged in
-    if (isLoggedIn) {
-      fetchModelData('model123'); // Replace 'model123' with the actual model ID
+    // Fetch the model data when the user is logged in and modelId is provided
+    if (isLoggedIn && modelId !== '') {
+      fetchModelData();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, modelId]);
 
   return (
     <div className="App">
@@ -75,6 +80,15 @@ function App() {
             <div className="menu">
               <h2>Welcome, {username}!</h2>
               <button onClick={handleLogout}>Logout</button>
+              <form onSubmit={fetchModelData}>
+                <input
+                  type="text"
+                  placeholder="Model ID"
+                  value={modelId}
+                  onChange={handleModelIdChange}
+                />
+                <button type="submit">Fetch Model</button>
+              </form>
             </div>
           ) : (
             <form className="login-form" onSubmit={handleLogin}>
