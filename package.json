@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "@react-three/drei": "^9.47.1",
@@ -25,5 +26,18 @@
     "@vitejs/plugin-react": "^3.0.0",
     "vite": "^4.0.0",
     "vite-plugin-mkcert": "^1.10.1"
-  }
+  },
+  "description": "<p align=\"center\">   <img src=\"doc-images/logo.png\" width=\"540\" /> </p> <h1 align=\"center\">React Three + 8thWall</h1> <h3 align=\"center\">Create AR applications on 8th Wall, in the best way possible: Declaratively.😉</h3>",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HussainAther/react-three-8thwall.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HussainAther/react-three-8thwall/issues"
+  },
+  "homepage": "https://github.com/HussainAther/react-three-8thwall#readme"
 }
