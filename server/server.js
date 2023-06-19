@@ -10,6 +10,29 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+// Define the API route for fetching furniture model IDs
+app.get('/api/furniture', async (req, res) => {
+  const baseURL = 'https://api.sketchfab.com/v3';
+  const searchEndpoint = '/search';
+  const params = {
+    type: 'models',
+    category: 'furniture',
+    sort_by: '-publishedAt',
+    per_page: 10,
+    page: 1,
+  };
+
+  try {
+    const response = await axios.get(`${baseURL}${searchEndpoint}`, { params });
+    const { results } = response.data;
+
+    const furnitureModelIDs = results.map((result) => result.uid);
+    res.json(furnitureModelIDs);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve furniture model IDs' });
+  }
+});
+
 // Define the API route for fetching model data based on the model ID
 app.get('/api/models/:modelId', async (req, res) => {
   const { modelId } = req.params;
@@ -29,8 +52,4 @@ app.get('/api/models/:modelId', async (req, res) => {
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-});
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
