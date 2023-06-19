@@ -34,8 +34,8 @@ function App() {
       setModelIds(furnitureIds);
   
       // Fetch furniture model data from Sketchfab API for each furniture ID
-      const fetchModelDataPromises = furnitureIds.map(async (id) => {
-        const modelResponse = await axios.get(`https://api.sketchfab.com/v3/models/${id}`);
+      const fetchModelDataPromises = furnitureIds.map(async (uid) => {
+        const modelResponse = await axios.get(`https://api.sketchfab.com/v3/models/${uid}`);
         return modelResponse.data;
       });
   
