@@ -13,9 +13,10 @@ app.get('*', (req, res) => {
 // Define the API route for fetching model data based on the model ID
 app.get('/api/models/:modelId', async (req, res) => {
   const { modelId } = req.params;
+  const apiUrl = `https://api.sketchfab.com/v3/models/${modelId}`;
 
   try {
-    const response = await axios.get(`https://api.sketchfab.com/v3/models/${modelId}`);
+    const response = await axios.get(apiUrl);
     const modelData = response.data;
 
     res.json(modelData);
