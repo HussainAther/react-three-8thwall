@@ -47,6 +47,7 @@ function App() {
       console.log('Error fetching furniture model data:', error);
     }
   };
+  
 
   const handleModelIdChange = (e) => {
     setSelectedModelId(e.target.value);
