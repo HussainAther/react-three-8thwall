@@ -25,7 +25,7 @@ function App() {
 
   const fetchModelData = async () => {
     try {
-      const response = await fetch(`/api/models/${modelId}`);
+      const response = await fetch('/api/furniture');
       const data = await response.json();
       setModelData(data);
     } catch (error) {
@@ -56,7 +56,7 @@ function App() {
                 value={modelId}
                 onChange={handleModelIdChange}
               />
-              <button type="submit" onClick={() => { setModelData(null); }}>Fetch Model</button>
+              <button type="submit" onClick={fetchModelData}>Fetch Model</button>
             </form>
           </div>
         </Html>
@@ -71,15 +71,4 @@ function App() {
   );
 }
 
-const fetchModelData = async () => {
-  try {
-    const response = await fetch(`http://localhost:3001/api/models/${modelId}`);
-    const data = await response.json();
-    setModelData(data);
-  } catch (error) {
-    console.log('Error fetching model data:', error);
-  }
-};
-
 export default App;
-
