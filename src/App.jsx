@@ -4,6 +4,7 @@ import './App.css';
 import { Canvas } from '@react-three/fiber';
 import LoadedGltf from './LoadedGltf';
 import { Html } from '@react-three/drei';
+import axios from 'axios';
 
 function App() {
   const canvasRef = useRef();
@@ -11,23 +12,36 @@ function App() {
   const [modelIds, setModelIds] = useState([]);
   const [selectedModelId, setSelectedModelId] = useState('');
   const [modelData, setModelData] = useState(null);
+  const [furnitureIds, setFurnitureIds] = useState([]);
+  const [furnitureModelData, setFurnitureModelData] = useState([]);
 
   useEffect(() => {
     XRExtras.Loading.showLoading();
-    fetchModelIds();
+    fetchFurnitureIds();
   }, []);
 
   const handleObjectClick = () => {
     console.log('Object clicked!');
   };
 
-  const fetchModelIds = async () => {
+  const fetchFurnitureIds = async () => {
     try {
-      const response = await fetch('/api/furniture');
-      const data = await response.json();
-      setModelIds(data);
+      const response = await axios.get('/api/furniture');
+      const furnitureIds = response.data;
+  
+      // Fetch furniture model data from Sketchfab API for each furniture ID
+      const fetchModelDataPromises = furnitureIds.map(async (id) => {
+        const modelResponse = await axios.get(`https://api.sketchfab.com/v3/models/${id}`);
+        return modelResponse.data;
+      });
+  
+      // Wait for all the model data requests to complete
+      const modelDataArray = await Promise.all(fetchModelDataPromises);
+  
+      // Update the state with the fetched furniture model data
+      setFurnitureModelData(modelDataArray);
     } catch (error) {
-      console.log('Error fetching model IDs:', error);
+      console.log('Error fetching furniture model data:', error);
     }
   };
 
@@ -53,6 +67,12 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Furniture Models:</h1>
+      <ul>
+        {furnitureModelData.map((model) => (
+          <li key={model.uid}>{model.name}</li>
+        ))}
+      </ul>
       <Canvas style={{ position: 'absolute' }}>
         <scene ref={R3Scene}>
           <ambientLight />
