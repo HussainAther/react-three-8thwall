@@ -8,24 +8,36 @@ import { Html } from '@react-three/drei';
 function App() {
   const canvasRef = useRef();
   const R3Scene = useRef();
-  const [modelId, setModelId] = useState('');
+  const [modelIds, setModelIds] = useState([]);
+  const [selectedModelId, setSelectedModelId] = useState('');
   const [modelData, setModelData] = useState(null);
 
   useEffect(() => {
     XRExtras.Loading.showLoading();
+    fetchModelIds();
   }, []);
 
   const handleObjectClick = () => {
     console.log('Object clicked!');
   };
 
+  const fetchModelIds = async () => {
+    try {
+      const response = await fetch('/api/furniture');
+      const data = await response.json();
+      setModelIds(data);
+    } catch (error) {
+      console.log('Error fetching model IDs:', error);
+    }
+  };
+
   const handleModelIdChange = (e) => {
-    setModelId(e.target.value);
+    setSelectedModelId(e.target.value);
   };
 
   const fetchModelData = async () => {
     try {
-      const response = await fetch('/api/furniture');
+      const response = await fetch(`/api/models/${selectedModelId}`);
       const data = await response.json();
       setModelData(data);
     } catch (error) {
@@ -34,10 +46,10 @@ function App() {
   };
 
   useEffect(() => {
-    if (modelId !== '') {
+    if (selectedModelId !== '') {
       fetchModelData();
     }
-  }, [modelId]);
+  }, [selectedModelId]);
 
   return (
     <div className="App">
@@ -50,13 +62,17 @@ function App() {
         <Html>
           <div className="menu">
             <form onSubmit={(e) => { e.preventDefault(); }}>
-              <input
-                type="text"
-                placeholder="Model ID"
-                value={modelId}
-                onChange={handleModelIdChange}
-              />
-              <button type="submit" onClick={fetchModelData}>Fetch Model</button>
+              <select value={selectedModelId} onChange={handleModelIdChange}>
+                <option value="">Select a model</option>
+                {modelIds.map((modelId) => (
+                  <option key={modelId} value={modelId}>
+                    {modelId}
+                  </option>
+                ))}
+              </select>
+              <button type="submit" onClick={fetchModelData} disabled={!selectedModelId}>
+                Fetch Model
+              </button>
             </form>
           </div>
         </Html>
