@@ -14,8 +14,8 @@ function App() {
   const [selectedModelId, setSelectedModelId] = useState('');
   const [modelData, setModelData] = useState(null);
   const [furnitureIds, setFurnitureIds] = useState([]);
-  const [setFurnitureModelData] = useState([]);
-
+  const [furnitureModelData, setFurnitureModelData] = useState([]);
+  
   useEffect(() => {
     XRExtras.Loading.showLoading();
     fetchFurnitureIds();
