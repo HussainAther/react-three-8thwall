@@ -12,7 +12,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// Define the API route for fetching furniture model IDs
 app.get('/api/furniture', async (req, res) => {
   const baseURL = 'https://api.sketchfab.com/v3/models';
   const searchEndpoint = '/search';
@@ -34,6 +33,7 @@ app.get('/api/furniture', async (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve furniture model IDs' });
   }
 });
+
 
 
 // Define the API route for fetching model data based on the model ID
