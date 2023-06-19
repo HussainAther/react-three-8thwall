@@ -3,7 +3,6 @@ const axios = require('axios');
 const app = express();
 const path = require('path');
 
-// const port = process.env.PORT || 5000;
 require('dotenv').config();
 
 app.use(express.json());
@@ -14,7 +13,7 @@ app.get('*', (req, res) => {
 });
 
 // Define the API route for fetching furniture model IDs
-app.get('/api/furniture', (req, res) => {
+app.get('/api/furniture', async (req, res) => {
   const baseURL = 'https://api.sketchfab.com/v3/models';
   const searchEndpoint = '/search';
   const params = {
@@ -25,17 +24,17 @@ app.get('/api/furniture', (req, res) => {
     page: 1,
   };
 
-  axios
-    .get(`${baseURL}${searchEndpoint}`, { params })
-    .then((response) => {
-      const { results } = response.data;
-      const furnitureModelIDs = results.map((result) => result.uid);
-      res.json(furnitureModelIDs);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to retrieve furniture model IDs' });
-    });
+  try {
+    const response = await axios.get(`${baseURL}${searchEndpoint}`, { params });
+    const { results } = response.data;
+
+    const furnitureModelIDs = results.map((result) => result.uid);
+    res.json(furnitureModelIDs);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve furniture model IDs' });
+  }
 });
+
 
 // Define the API route for fetching model data based on the model ID
 app.get('/api/models/:modelId', async (req, res) => {
