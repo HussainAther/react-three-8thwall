@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import LoadedGltf from './LoadedGltf';
 import { Html } from '@react-three/drei';
 import axios from 'axios';
+import { fetchModelData } from '../sketchfab-api'; // Import the relevant functions from sketchfab-api.js
 
 function App() {
   const canvasRef = useRef();
@@ -13,7 +14,7 @@ function App() {
   const [selectedModelId, setSelectedModelId] = useState('');
   const [modelData, setModelData] = useState(null);
   const [furnitureIds, setFurnitureIds] = useState([]);
-  const [furnitureModelData, setFurnitureModelData] = useState([]);
+  const [setFurnitureModelData] = useState([]);
 
   useEffect(() => {
     XRExtras.Loading.showLoading();
@@ -79,18 +80,18 @@ function App() {
         </scene>
         <Html>
           <div className="menu">
-            <form onSubmit={(e) => { e.preventDefault(); }}>
-            <select value={selectedModelId} onChange={handleModelIdChange}>
+          <form onSubmit={(e) => { e.preventDefault(); }}>
+          <select value={selectedModelId} onChange={handleModelIdChange}>
             <option value="">Select a model</option>
-              {modelIds.map((modelId) => (
-              <option key={modelId} value={modelId}>
-              {modelId}
-              </option>
-              ))}
-              </select>
-              <button type="submit" onClick={fetchModelData} disabled={!selectedModelId}>
-                Fetch Model
-              </button>
+            {modelIds.map((modelId) => (
+            <option key={modelId} value={modelId}>
+            {modelId}
+            </option>
+            ))}
+            </select>
+            <button type="submit" onClick={fetchModelData} disabled={!selectedModelId}>
+            Fetch Model
+            </button>
             </form>
           </div>
         </Html>
