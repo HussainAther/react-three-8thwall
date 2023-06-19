@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import LoadedGltf from './LoadedGltf';
 import { Html } from '@react-three/drei';
 import axios from 'axios';
-// import { fetchModelData } from '../sketchfab-api.js'; // Import the relevant functions from sketchfab-api.js
+import { fetchModelData } from '../sketchfab-api'; // Import the relevant functions from sketchfab-api.js
 
 function App() {
   const canvasRef = useRef();
