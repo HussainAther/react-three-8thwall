@@ -29,6 +29,9 @@ function App() {
       const response = await axios.get('/api/furniture');
       const furnitureIds = response.data;
   
+      // Update the state with the fetched furniture model IDs
+      setModelIds(furnitureIds);
+  
       // Fetch furniture model data from Sketchfab API for each furniture ID
       const fetchModelDataPromises = furnitureIds.map(async (id) => {
         const modelResponse = await axios.get(`https://api.sketchfab.com/v3/models/${id}`);
@@ -59,12 +62,6 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (selectedModelId !== '') {
-      fetchModelData();
-    }
-  }, [selectedModelId]);
-
   return (
     <div className="App">
       <h1>Furniture Models:</h1>
@@ -82,13 +79,13 @@ function App() {
         <Html>
           <div className="menu">
             <form onSubmit={(e) => { e.preventDefault(); }}>
-              <select value={selectedModelId} onChange={handleModelIdChange}>
-                <option value="">Select a model</option>
-                {modelIds.map((modelId) => (
-                  <option key={modelId} value={modelId}>
-                    {modelId}
-                  </option>
-                ))}
+            <select value={selectedModelId} onChange={handleModelIdChange}>
+            <option value="">Select a model</option>
+              {modelIds.map((modelId) => (
+              <option key={modelId} value={modelId}>
+              {modelId}
+              </option>
+              ))}
               </select>
               <button type="submit" onClick={fetchModelData} disabled={!selectedModelId}>
                 Fetch Model
